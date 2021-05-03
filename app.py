@@ -15,8 +15,10 @@ TOKENS = 0
 ANSWER = str()
 
 
-@app.route('/', methods=['POST'])
-def get_alice_request():
+# Задаем параметры приложения Flask.
+@app.route("/", methods=['POST'])
+def main():
+# Функция получает тело запроса и возвращает ответ.
     logging.info('Request: %r', request.json)
 
     response = {
@@ -26,6 +28,8 @@ def get_alice_request():
             'end_session': False
         }
     }
+
+    handle_dialog(response, request.json)
 
     logging.info('Response: %r', response)
 
@@ -371,5 +375,5 @@ def knopki(req, res):
     ]
 
 
-# if __name__ == '__main__':
-#     app.run()
+if __name__ == '__main__':
+    app.run()
