@@ -15,7 +15,7 @@ TOKENS = 0
 ANSWER = str()
 
 
-@app.route('/post', methods=['POST'])
+@app.route('/', methods=['POST'])
 def get_alice_request():
     logging.info('Request: %r', request.json)
 
