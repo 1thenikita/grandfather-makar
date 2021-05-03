@@ -1,13 +1,13 @@
 import json
+import logging
 from random import randint
 import sqlite3
 
 from flask import Flask, request
 
-from flask_ngrok import run_with_ngrok
-
 app = Flask(__name__)
-run_with_ngrok(app)
+
+logging.basicConfig(level=logging.INFO)
 
 privetctvia = ['О ты ещё живой', 'Привет старый', 'Я думал ты опять сидишь в тюрьме)']
 ID_USERS = str()
@@ -17,6 +17,8 @@ ANSWER = str()
 
 @app.route('/post', methods=['POST'])
 def get_alice_request():
+    logging.info('Request: %r', request.json)
+
     response = {
         'session': request.json['session'],
         'version': request.json['version'],
@@ -24,8 +26,14 @@ def get_alice_request():
             'end_session': False
         }
     }
-    handle_dialog(request.json, response)
-    return json.dumps(response)
+
+    logging.info('Response: %r', response)
+
+    return json.dumps(
+        response,
+        ensure_ascii=False,
+        indent=2
+    )
 
 
 def handle_dialog(req, res):
@@ -363,5 +371,5 @@ def knopki(req, res):
     ]
 
 
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run()
