@@ -29,7 +29,7 @@ def main():
         }
     }
 
-    handle_dialog(response, request.json)
+    handle_dialog(request.json, response)
 
     logging.info('Response: %r', response)
 
